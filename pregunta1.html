@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carta 1</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; text-align: center; }
+    input { padding: 10px; font-size: 1em; width: 80%; max-width: 300px; margin: 10px 0; }
+    button { padding: 10px 20px; font-size: 1em; }
+    #resultado { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>¿Cuál es el metal más ligero de la tabla periódica?</h2>
+  <input type="text" id="respuesta" placeholder="Escribe tu respuesta aquí" />
+  <br />
+  <button onclick="comprobar()">Comprobar</button>
+  <p id="resultado"></p>
+
+  <script>
+    // Función para eliminar tildes y convertir a minúsculas
+    function normalizar(texto) {
+      return texto.normalize("NFD")
+                  .replace(/[\u0300-\u036f]/g, "") // quita tildes
+                  .toLowerCase()
+                  .trim();
+    }
+
+    function comprobar() {
+      const entrada = normalizar(document.getElementById("respuesta").value);
+      const respuestasValidas = [
+        "Litio",
+        "litio",
+        "El litio"
+      ].map(normalizar); // Normalizar todas las respuestas válidas
+
+      const resultado = document.getElementById("resultado");
+
+      if (respuestasValidas.includes(entrada)) {
+        resultado.textContent = "✅ ¡Correcto!";
+        resultado.style.color = "green";
+      } else {
+        resultado.textContent = "❌ Incorrecto. Has fallado 😔.";
+        resultado.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
